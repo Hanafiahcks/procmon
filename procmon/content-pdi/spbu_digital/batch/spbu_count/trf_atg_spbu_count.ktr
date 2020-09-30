@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>trf_atg_get_count_batch</name>
+    <name>trf_atg_spbu_count</name>
     <description />
     <extended_description />
     <trans_version />
@@ -416,7 +416,7 @@
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
     <shared_objects_file />
-    <capture_step_performance>N</capture_step_performance>
+    <capture_step_performance>Y</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
     <dependencies>
@@ -624,60 +624,31 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Group by totalisator</from>
-      <to>Dummy (do nothing)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Dummy (do nothing)</from>
-      <to>Insert / Update</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by penerimaan</from>
-      <to>Dummy (do nothing)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by stockkritis</from>
-      <to>Dummy (do nothing)</to>
+      <from>Group by sales</from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Group by stock</from>
-      <to>Dummy (do nothing)</to>
+      <to>Table output 5</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Group by sales</from>
-      <to>Dummy (do nothing)</to>
+      <from>Group by stockkritis</from>
+      <to>Table output 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Group by penerimaan</from>
+      <to>Table output 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Group by totalisator</from>
+      <to>Table output 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Group by penerimaan</name>
     <type>GroupBy</type>
@@ -702,17 +673,23 @@
         <name>tabel</name>
       </field>
       <field>
-        <name>push_date</name>
+        <name>no_spbu</name>
       </field>
       <field>
-        <name>push_jam</name>
+        <name>tanggal_data</name>
       </field>
     </group>
     <fields>
       <field>
-        <aggregate>jml</aggregate>
+        <aggregate>row_cnt</aggregate>
         <subject />
         <type>COUNT_ANY</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>cnt_dist</aggregate>
+        <subject>no_spbu</subject>
+        <type>COUNT_DISTINCT</type>
         <valuefield />
       </field>
     </fields>
@@ -725,7 +702,7 @@
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>160</yloc>
+      <yloc>162</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -753,17 +730,23 @@
         <name>tabel</name>
       </field>
       <field>
-        <name>push_date</name>
+        <name>no_spbu</name>
       </field>
       <field>
-        <name>push_jam</name>
+        <name>tanggal_data</name>
       </field>
     </group>
     <fields>
       <field>
-        <aggregate>jml</aggregate>
+        <aggregate>row_cnt</aggregate>
         <subject />
         <type>COUNT_ANY</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>cnt_dist</aggregate>
+        <subject>no_spbu</subject>
+        <type>COUNT_DISTINCT</type>
         <valuefield />
       </field>
     </fields>
@@ -775,7 +758,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>419</xloc>
+      <xloc>416</xloc>
       <yloc>456</yloc>
       <draw>Y</draw>
     </GUI>
@@ -804,17 +787,23 @@
         <name>tabel</name>
       </field>
       <field>
-        <name>push_date</name>
+        <name>no_spbu</name>
       </field>
       <field>
-        <name>push_jam</name>
+        <name>tanggal_data</name>
       </field>
     </group>
     <fields>
       <field>
-        <aggregate>jml</aggregate>
+        <aggregate>row_cnt</aggregate>
         <subject />
         <type>COUNT_ANY</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>cnt_dist</aggregate>
+        <subject>no_spbu</subject>
+        <type>COUNT_DISTINCT</type>
         <valuefield />
       </field>
     </fields>
@@ -827,7 +816,7 @@
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>352</yloc>
+      <yloc>358</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -855,17 +844,23 @@
         <name>tabel</name>
       </field>
       <field>
-        <name>push_date</name>
+        <name>no_spbu</name>
       </field>
       <field>
-        <name>push_jam</name>
+        <name>tanggal_data</name>
       </field>
     </group>
     <fields>
       <field>
-        <aggregate>jml</aggregate>
+        <aggregate>row_cnt</aggregate>
         <subject />
         <type>COUNT_ANY</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>cnt_dist</aggregate>
+        <subject>no_spbu</subject>
+        <type>COUNT_DISTINCT</type>
         <valuefield />
       </field>
     </fields>
@@ -878,7 +873,7 @@
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>256</yloc>
+      <yloc>260</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -906,17 +901,23 @@
         <name>tabel</name>
       </field>
       <field>
-        <name>push_date</name>
+        <name>no_spbu</name>
       </field>
       <field>
-        <name>push_jam</name>
+        <name>tanggal_data</name>
       </field>
     </group>
     <fields>
       <field>
-        <aggregate>jml</aggregate>
+        <aggregate>row_cnt</aggregate>
         <subject />
         <type>COUNT_ANY</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>cnt_dist</aggregate>
+        <subject>no_spbu</subject>
+        <type>COUNT_DISTINCT</type>
         <valuefield />
       </field>
     </fields>
@@ -939,17 +940,17 @@
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
-    <copies>1</copies>
+    <copies>8</copies>
     <partitioning>
       <method>none</method>
       <schema_name />
     </partitioning>
     <connection>procmon</connection>
-    <commit>100</commit>
+    <commit>500</commit>
     <update_bypassed>N</update_bypassed>
     <lookup>
       <schema />
-      <table>atg_count</table>
+      <table>spbu_count</table>
       <key>
         <name>tabel</name>
         <field>tabel</field>
@@ -957,14 +958,14 @@
         <name2 />
       </key>
       <key>
-        <name>push_date</name>
-        <field>push_date</field>
+        <name>no_spbu</name>
+        <field>no_spbu</field>
         <condition>=</condition>
         <name2 />
       </key>
       <key>
-        <name>push_jam</name>
-        <field>push_jam</field>
+        <name>tanggal_data</name>
+        <field>tanggal_data</field>
         <condition>=</condition>
         <name2 />
       </key>
@@ -974,18 +975,23 @@
         <update>N</update>
       </value>
       <value>
-        <name>push_date</name>
-        <rename>push_date</rename>
+        <name>no_spbu</name>
+        <rename>no_spbu</rename>
         <update>N</update>
       </value>
       <value>
-        <name>push_jam</name>
-        <rename>push_jam</rename>
+        <name>tanggal_data</name>
+        <rename>tanggal_data</rename>
         <update>N</update>
       </value>
       <value>
-        <name>jml</name>
-        <rename>jml</rename>
+        <name>row_cnt</name>
+        <rename>row_cnt</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>cnt_dist</name>
+        <rename>cnt_dist</rename>
         <update>Y</update>
       </value>
     </lookup>
@@ -997,8 +1003,223 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
+      <xloc>1216</xloc>
       <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>procmon</connection>
+    <schema />
+    <table>spbu_count</table>
+    <commit>5000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>736</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output 2</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>procmon</connection>
+    <schema />
+    <table>spbu_count</table>
+    <commit>5000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output 3</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>procmon</connection>
+    <schema />
+    <table>spbu_count</table>
+    <commit>5000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>745</xloc>
+      <yloc>190</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output 4</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>procmon</connection>
+    <schema />
+    <table>spbu_count</table>
+    <commit>5000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>748</xloc>
+      <yloc>286</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output 5</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>procmon</connection>
+    <schema />
+    <table>spbu_count</table>
+    <commit>5000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>754</xloc>
+      <yloc>393</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1014,9 +1235,9 @@
       <schema_name />
     </partitioning>
     <connection>spbu_digital</connection>
-    <sql>SELECT 'penerimaan'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam  FROM public.spbudigital_penerimaan 
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
+    <sql>SELECT 'penerimaan'tabel, no_spbu, penerimaan_datetime ::date tanggal_data  FROM public.spbudigital_penerimaan 
+where penerimaan_datetime::date='${CALDATE}'::date
+order by no_spbu</sql>
     <limit />
     <lookup />
     <execute_each_row>N</execute_each_row>
@@ -1047,9 +1268,9 @@ order by push_datetime</sql>
       <schema_name />
     </partitioning>
     <connection>spbu_digital</connection>
-    <sql>SELECT 'sales'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_sales
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
+    <sql>SELECT 'sales'tabel,no_spbu, sales_date::date tanggal_data FROM public.spbudigital_sales
+where sales_date::date='${CALDATE}'::date
+order by no_spbu</sql>
     <limit />
     <lookup />
     <execute_each_row>N</execute_each_row>
@@ -1080,9 +1301,9 @@ order by push_datetime</sql>
       <schema_name />
     </partitioning>
     <connection>spbu_digital</connection>
-    <sql>SELECT 'stock'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_stock 
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
+    <sql>SELECT 'stock'tabel,no_spbu, stock_datetime::date tanggal_data FROM public.spbudigital_stock 
+where stock_datetime::date='${CALDATE}'::date
+order by no_spbu</sql>
     <limit />
     <lookup />
     <execute_each_row>N</execute_each_row>
@@ -1113,9 +1334,9 @@ order by push_datetime</sql>
       <schema_name />
     </partitioning>
     <connection>spbu_digital</connection>
-    <sql>SELECT 'stockkritis'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_stockkritis
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
+    <sql>SELECT 'stockkritis'tabel,no_spbu, stockkritis_datetime::date tanggal_data FROM public.spbudigital_stockkritis
+where stockkritis_datetime::date='${CALDATE}'::date
+order by no_spbu</sql>
     <limit />
     <lookup />
     <execute_each_row>N</execute_each_row>
@@ -1146,9 +1367,9 @@ order by push_datetime</sql>
       <schema_name />
     </partitioning>
     <connection>spbu_digital</connection>
-    <sql>SELECT 'totalisator'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_totalisator 
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
+    <sql>SELECT 'totalisator'tabel, no_spbu, totalisator_date::date tanggal_data FROM public.spbudigital_totalisator 
+where totalisator_date::date='${CALDATE}'::date
+order by no_spbu</sql>
     <limit />
     <lookup />
     <execute_each_row>N</execute_each_row>

@@ -450,14 +450,6 @@
     <index_tablespace />
     <attributes>
       <attribute>
-        <code>EXTRA_OPTION_POSTGRESQL.ssl</code>
-        <attribute>True</attribute>
-      </attribute>
-      <attribute>
-        <code>EXTRA_OPTION_POSTGRESQL.sslrootcert</code>
-        <attribute>C:\BaltimoreCyberTrustRoot.crt.pem</attribute>
-      </attribute>
-      <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
       </attribute>

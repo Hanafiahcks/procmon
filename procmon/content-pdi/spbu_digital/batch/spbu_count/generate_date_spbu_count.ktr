@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>trf_atg_get_count_batch</name>
+    <name>generate_date_spbu_count</name>
     <description />
     <extended_description />
     <trans_version />
@@ -428,14 +428,65 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2020/09/21 10:28:34.355</created_date>
+    <created_date>2020/09/22 00:32:34.210</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2020/09/21 10:28:34.355</modified_date>
+    <modified_date>2020/09/22 00:32:34.210</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>ms2</name>
+    <server>${MS2.HOST}</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${MS2.DB}</database>
+    <port>5432</port>
+    <username>${MS2.USER}</username>
+    <password>${MS2.PASS}</password>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>5432</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>pdi_logging</name>
     <server>${PDI_LOGGING.HOST}</server>
@@ -546,117 +597,26 @@
       </attribute>
     </attributes>
   </connection>
-  <connection>
-    <name>spbu_digital</name>
-    <server>${SPBU_DIG.HOST}</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>${SPBU_DIG.DB}</database>
-    <port>5432</port>
-    <username>${SPBU_DIG.USER}</username>
-    <password>${SPBU_DIG.PASS}</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
-    <attributes>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
   <order>
     <hop>
-      <from>totalisator ${CALDATE}</from>
-      <to>Group by totalisator</to>
+      <from>generate_date</from>
+      <to>Copy rows to result</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>penerimaan ${CALDATE}</from>
-      <to>Group by penerimaan</to>
-      <enabled>Y</enabled>
+      <from>generate_date 2</from>
+      <to>generate_date</to>
+      <enabled>N</enabled>
     </hop>
     <hop>
-      <from>stockkritis ${CALDATE}</from>
-      <to>Group by stockkritis</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>stock ${CALDATE}</from>
-      <to>Group by stock</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>sales ${CALDATE}</from>
-      <to>Group by sales</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by totalisator</from>
-      <to>Dummy (do nothing)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Dummy (do nothing)</from>
-      <to>Insert / Update</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by penerimaan</from>
-      <to>Dummy (do nothing)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by stockkritis</from>
-      <to>Dummy (do nothing)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by stock</from>
-      <to>Dummy (do nothing)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by sales</from>
-      <to>Dummy (do nothing)</to>
+      <from>generate_date 2 2</from>
+      <to>generate_date</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
+    <name>Copy rows to result</name>
+    <type>RowsToResult</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -673,65 +633,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Group by penerimaan</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      <field>
-        <name>tabel</name>
-      </field>
-      <field>
-        <name>push_date</name>
-      </field>
-      <field>
-        <name>push_jam</name>
-      </field>
-    </group>
-    <fields>
-      <field>
-        <aggregate>jml</aggregate>
-        <subject />
-        <type>COUNT_ANY</type>
-        <valuefield />
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
+      <xloc>512</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Group by sales</name>
-    <type>GroupBy</type>
+    <name>generate_date</name>
+    <type>TableInput</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -740,33 +649,18 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      <field>
-        <name>tabel</name>
-      </field>
-      <field>
-        <name>push_date</name>
-      </field>
-      <field>
-        <name>push_jam</name>
-      </field>
-    </group>
-    <fields>
-      <field>
-        <aggregate>jml</aggregate>
-        <subject />
-        <type>COUNT_ANY</type>
-        <valuefield />
-      </field>
-    </fields>
+    <connection>ms2</connection>
+    <sql>SELECT date_trunc('day', dd):: date caldate
+FROM generate_series
+        ( ?::timestamp 
+        , ?::timestamp
+        , '1 day'::interval) dd
+        ;</sql>
+    <limit />
+    <lookup>generate_date 2 2</lookup>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -775,167 +669,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>419</xloc>
-      <yloc>456</yloc>
+      <xloc>320</xloc>
+      <yloc>164</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Group by stock</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      <field>
-        <name>tabel</name>
-      </field>
-      <field>
-        <name>push_date</name>
-      </field>
-      <field>
-        <name>push_jam</name>
-      </field>
-    </group>
-    <fields>
-      <field>
-        <aggregate>jml</aggregate>
-        <subject />
-        <type>COUNT_ANY</type>
-        <valuefield />
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Group by stockkritis</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      <field>
-        <name>tabel</name>
-      </field>
-      <field>
-        <name>push_date</name>
-      </field>
-      <field>
-        <name>push_jam</name>
-      </field>
-    </group>
-    <fields>
-      <field>
-        <aggregate>jml</aggregate>
-        <subject />
-        <type>COUNT_ANY</type>
-        <valuefield />
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Group by totalisator</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      <field>
-        <name>tabel</name>
-      </field>
-      <field>
-        <name>push_date</name>
-      </field>
-      <field>
-        <name>push_jam</name>
-      </field>
-    </group>
-    <fields>
-      <field>
-        <aggregate>jml</aggregate>
-        <subject />
-        <type>COUNT_ANY</type>
-        <valuefield />
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>64</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insert / Update</name>
-    <type>InsertUpdate</type>
+    <name>generate_date 2</name>
+    <type>TableInput</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -945,82 +686,16 @@
       <schema_name />
     </partitioning>
     <connection>procmon</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema />
-      <table>atg_count</table>
-      <key>
-        <name>tabel</name>
-        <field>tabel</field>
-        <condition>=</condition>
-        <name2 />
-      </key>
-      <key>
-        <name>push_date</name>
-        <field>push_date</field>
-        <condition>=</condition>
-        <name2 />
-      </key>
-      <key>
-        <name>push_jam</name>
-        <field>push_jam</field>
-        <condition>=</condition>
-        <name2 />
-      </key>
-      <value>
-        <name>tabel</name>
-        <rename>tabel</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>push_date</name>
-        <rename>push_date</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>push_jam</name>
-        <rename>push_jam</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>jml</name>
-        <rename>jml</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>960</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>penerimaan ${CALDATE}</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>spbu_digital</connection>
-    <sql>SELECT 'penerimaan'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam  FROM public.spbudigital_penerimaan 
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
+    <sql>select (min(mindate) - interval '1 day')::date,now()::date from 
+(SELECT
+  tabel
+, MAX(tanggal_data) mindate
+FROM spbu_count
+group by tabel) as x</sql>
     <limit />
     <lookup />
     <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
+    <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
     <cluster_schema />
     <remotesteps>
@@ -1030,13 +705,13 @@ order by push_datetime</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
+      <xloc>128</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>sales ${CALDATE}</name>
+    <name>generate_date 2 2</name>
     <type>TableInput</type>
     <description />
     <distribute>Y</distribute>
@@ -1046,14 +721,12 @@ order by push_datetime</sql>
       <method>none</method>
       <schema_name />
     </partitioning>
-    <connection>spbu_digital</connection>
-    <sql>SELECT 'sales'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_sales
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
+    <connection>procmon</connection>
+    <sql>select (min('1/1/2020'::date))::date,now()::date</sql>
     <limit />
     <lookup />
     <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
+    <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
     <cluster_schema />
     <remotesteps>
@@ -1063,107 +736,8 @@ order by push_datetime</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>227</xloc>
-      <yloc>456</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>stock ${CALDATE}</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>spbu_digital</connection>
-    <sql>SELECT 'stock'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_stock 
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
-    <limit />
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>224</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>stockkritis ${CALDATE}</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>spbu_digital</connection>
-    <sql>SELECT 'stockkritis'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_stockkritis
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
-    <limit />
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>224</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>totalisator ${CALDATE}</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>spbu_digital</connection>
-    <sql>SELECT 'totalisator'tabel,push_datetime,push_datetime::date push_date,extract(hour from push_datetime)push_jam FROM public.spbudigital_totalisator 
-where push_datetime::date='${CALDATE}'::date
-order by push_datetime</sql>
-    <limit />
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>224</xloc>
-      <yloc>64</yloc>
+      <xloc>147</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

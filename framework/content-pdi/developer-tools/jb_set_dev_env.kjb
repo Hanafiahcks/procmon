@@ -13,7 +13,7 @@
   <parameters>
     <parameter>
       <name>P_JOB_NAME</name>
-      <default_value>development</default_value>
+      <default_value>jb_main_spbu_count</default_value>
       <description />
     </parameter>
     <parameter>

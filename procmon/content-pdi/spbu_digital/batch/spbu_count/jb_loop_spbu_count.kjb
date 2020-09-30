@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>jb_loop_atg_get_count</name>
+  <name>jb_loop_spbu_count</name>
   <description />
   <extended_description />
   <job_version />
@@ -35,6 +35,14 @@
     <data_tablespace />
     <index_tablespace />
     <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_POSTGRESQL.ssl</code>
+        <attribute>True</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_POSTGRESQL.sslrootcert</code>
+        <attribute>C:\BaltimoreCyberTrustRoot.crt.pem</attribute>
+      </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
@@ -374,7 +382,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id />
-      <filename>${CONTENT_HOME}/spbu_digital/batch/generate_date_for_get_count.ktr</filename>
+      <filename>${CONTENT_HOME}\spbu_digital\batch\spbu_count\generate_date_spbu_count.ktr</filename>
       <transname />
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -410,7 +418,7 @@
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id />
-      <filename>${CONTENT_HOME}/spbu_digital/batch/jb_atg_get_count_row.kjb</filename>
+      <filename>${CONTENT_HOME}\spbu_digital\batch\spbu_count\jb_spbu_count.kjb</filename>
       <jobname />
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
